@@ -1,16 +1,19 @@
 import React from "react";
 import Button from "../Button";
 import style from './Form.module.scss'
+import { ITarefa } from "../../types/ITarefa";
 
-class Form extends React.Component {
+class Form extends React.Component<{
+  setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>
+}> {
   state = {
     tarefa: "",
-    time: "00:00"
+    tempo: "00:00"
   }
 
   adicionarTarefa(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault()
-    console.log("state : ", this.state)
+    this.props.setTarefas(tarefasAntigas => [...tarefasAntigas, {...this.state}])
   }
 
   render(): React.ReactNode {
@@ -23,10 +26,10 @@ class Form extends React.Component {
           <input
             type="text"
             name="tarefa"
-            id="tarefa" 
+            id="tarefa"
             placeholder="O que você quer estudar ?"
             value={this.state.tarefa}
-            onChange={event => this.setState({...this.state, tarefa: event.target.value})}
+            onChange={event => this.setState({ ...this.state, tarefa: event.target.value })}
           />
         </div>
         <div className={style["inputContainer"]}>
@@ -37,8 +40,8 @@ class Form extends React.Component {
             type="time"
             step="1"
             name="tempo"
-            value={this.state.time}
-            onChange={event => this.setState({...this.state, time: event.target.value})}
+            value={this.state.tempo}
+            onChange={event => this.setState({ ...this.state, tempo: event.target.value })}
             id="tempo"
             min="00:00:00"
             max="01:30:00"
