@@ -8,7 +8,7 @@ class Form extends React.Component<{
   setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>
 }> {
   state = {
-    tarefa: "",
+    descricao: "",
     tempo: "00:00"
   }
 
@@ -26,7 +26,7 @@ class Form extends React.Component<{
       ]
     )
     this.setState({
-      tarefa: "",
+      descricao: "",
       tempo:"00:00"
     })
   }
@@ -35,16 +35,16 @@ class Form extends React.Component<{
     return (
       <form className={style.novaTarefa} onSubmit={this.adicionarTarefa.bind(this)}>
         <div className={style.inputContainer}>
-          <label htmlFor="tarefa">
+          <label htmlFor="descricao">
             Adicione um novo estudo
           </label>
           <input
             type="text"
-            name="tarefa"
-            id="tarefa"
+            name="descricao"
+            id="descricao"
             placeholder="O que você quer estudar ?"
-            value={this.state.tarefa}
-            onChange={event => this.setState({ ...this.state, tarefa: event.target.value })}
+            value={this.state.descricao}
+            onChange={event => this.setState({ ...this.state, descricao: event.target.value })}
           />
         </div>
         <div className={style["inputContainer"]}>
