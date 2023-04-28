@@ -1,7 +1,9 @@
 import React from "react";
 import style from "./Item.module.scss"
+import { ITarefa } from "../../../types/ITarefa";
 
-function Item({tarefa, tempo} : {tarefa: string, tempo: string}) {
+function Item({tarefa, tempo, completado, selecionado, id} : ITarefa) {
+  console.log("item atual: ", {tarefa, tempo, completado, selecionado, id})
   return (
     <li className={style.item}>
       <h3>
