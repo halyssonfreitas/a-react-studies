@@ -12,7 +12,6 @@ function Item(
     selecionado,
     id,
     selecionaTarefa} : Props) {
-  console.log("item atual: ", {descricao, tempo, completado, selecionado, id})
   return (
     <li
       className={`${style.item} ${selecionado ? style.itemSelecionado : ''}`}
