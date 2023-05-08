@@ -17,7 +17,22 @@ function App() {
         selecionado: selecionado?.id === tarefa.id ? true : false
       })
     ))
-    
+  }
+
+  function finalizarTarefa() {
+    if(selecionado) {
+      setSelecionado(undefined)
+      setTarefas(tarefas => tarefas.map(tarefa => {
+        if (tarefa.id === selecionado.id) {
+          return {
+            ... tarefa,
+            selecionado: false,
+            completado: true
+          }
+        }
+        return tarefa
+      }))
+    }
   }
 
   return (
@@ -27,7 +42,10 @@ function App() {
         tarefas={tarefas}
         selecionaTarefa={selecionaTarefa}
       />
-      <Stopwatch/>
+      <Stopwatch 
+      selecionado={selecionado}
+      finalizarTarefa={finalizarTarefa}
+      />
     </div>
   );
 }
