@@ -1,7 +1,21 @@
 import React from "react";
 import style from './Button.module.scss'
 
-class Button extends React.Component<{
+interface Props {
+  children?: React.ReactNode,
+  type?: "button" | "submit" | "reset" | undefined,
+  onClick?: () => void
+}
+
+function Button({ children, type, onClick }: Props) {
+  return (
+    <button type={type} className={style.botao} onClick={onClick}>
+      {children}
+    </button>
+  )
+}
+
+class Button1 extends React.Component<{
   children: string,
   type?: "button" | "submit" | "reset" | undefined,
   onClick?: () => void

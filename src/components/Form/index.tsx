@@ -1,10 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../Button";
 import style from './Form.module.scss'
 import { ITarefa } from "../../types/ITarefa";
 import { v4 as uuidv4 } from "uuid";
 
-class Form extends React.Component<{
+interface Props {
+  setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>
+}
+
+function Form ({ setTarefas }: Props) {
+
+  const [descricao, setDescricao] = useState("")
+  const [tempo, setTempo] = useState("00:00")
+
+  function adicionarTarefa(event: React.FormEvent<HTMLFormElement>): void {
+    event.preventDefault()
+    setTarefas(tarefasAntigas => 
+      [
+        ...tarefasAntigas,
+        {
+          descricao,
+          tempo,
+          selecionado: false,
+          completado: false,
+          id: uuidv4()
+        }
+      ]
+    )
+    setDescricao("")
+    setTempo("00:00")
+  }
+
+  return (
+    <form className={style.novaTarefa} onSubmit={adicionarTarefa}>
+      <div className={style.inputContainer}>
+        <label htmlFor="descricao">
+          Adicione um novo estudo
+        </label>
+        <input
+          type="text"
+          name="descricao"
+          id="descricao"
+          placeholder="O que você quer estudar ?"
+          value={descricao}
+          onChange={event => setDescricao(event.target.value)}
+        />
+      </div>
+      <div className={style["inputContainer"]}>
+        <label htmlFor="tempo">
+          Tempo
+        </label>
+        <input
+          type="time"
+          step="1"
+          name="tempo"
+          value={tempo}
+          onChange={event => setTempo(event.target.value)}
+          id="tempo"
+          min="00:00:00"
+          max="01:30:00"
+          required
+        />
+      </div>
+      <Button type="submit">
+        Adicionar
+      </Button>
+    </form>
+  )
+}
+
+export default Form
+
+// ===================================== OLD
+
+class Form1 extends React.Component<{
   setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>
 }> {
   state = {
@@ -69,10 +138,4 @@ class Form extends React.Component<{
       </form>
     )
   }
-}
-
-export default Form
-
-function v4() {
-  throw new Error("Function not implemented.");
 }
